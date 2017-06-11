@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class='container-fluid'>
+    <div class='col-md-6 col-md-offset-3 flash text-center'>
+
+        <br>
+        <h3>Create a Post</h3>
+        <form method='post'>
+            <input type='text' class='input-post' name='title'
+                placeholder="Title (Required)">
+            <br>
+            <textarea name="content" id='new-post-textarea'></textarea>
+            <br>
+            <a>
+                Cancel
+            </a>
+            <input id='add-song' class='CRUD-button' type='submit' value='Add'>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

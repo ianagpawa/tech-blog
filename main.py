@@ -15,11 +15,40 @@ from google.appengine.ext import ndb
 
 app = Flask(__name__)
 
+def login_required(func):
+    '''
+    login_required: function decorator for checking if user is logged in
+    Returns:
+        If not logged in, redirects to login page.
+    '''
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if 'email' in login_session:
+            return func(*args, **kwargs)
+        else:
+            flash("You are not allowed to acces this without logging in!")
+            return redirect("/login")
+    return decorated_function
+
+
+
 @app.route('/')
 def front():
-    # posts = ndb.GqlQuery("SELECT * FROM Post ORDER BY created DESC LIMIT 10")
-    book = self.request.get('default')
-    ancestor_key = ndb.Key("Post", book)
     posts = Post.query()
 
     return render_template("front.html", posts=posts)
+
+
+@app.route("/new/", methods=['GET', 'POST'])
+@login_required
+def newPost():
+    if request.method == "POST":
+        if request.form['title'] and request.form['content']:
+            title = request.form['title']
+            content = request.form['content']
+            post = Post(title=title, content=content)
+            post.put()
+            return redirect("/")
+
+    else:
+        return render_template("new_post.html")

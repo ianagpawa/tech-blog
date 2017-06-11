@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="signup" class='col-xs-4 col-xs-offset-4'>
+    <h2 class="text-justify">Sign Up</h2>
+
+    <form method="post">
+        <input type="text" name="username" value="{{username}}" placeholder="Username">
+            <p class="error">{{error_username}}</p>
+
+        <input type="password" name="password" value="" placeholder="Password">
+            <p class="error">{{error_password}}</p>
+
+        <input type="password" name="verify" placeholder="Verify Password">
+            <p class="error">{{error_verify}}</p>
+
+        <input type="text" name="email" value="{{email}}" placeholder='Email'>
+            <p class="error">{{error_email}}</p>
+        <div>
+            <button type="submit" class='submit-button' id='signup-submit'>Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 
 from google.appengine.ext import ndb
-
-class Post(ndb.Model):
+import model
+class Post(model.Base):
     """
     This class is for blog posts
     Attributes:
@@ -12,12 +12,11 @@ class Post(ndb.Model):
         last_modified (date): Date of when the blog post was last modified.
     """
 
-
-    title = ndb.StringProperty(required = True)
-    content = ndb.TextProperty(required = True)
-    creator = "Ian Agpawa"
-    created = ndb.DateTimeProperty(auto_now_add = True)
-    last_modified = ndb.DateTimeProperty(auto_now = True)
+    post_key = ndb.KeyProperty(kind=model.User, required=True)
+    title = ndb.StringProperty(required=True)
+    content = ndb.TextProperty(required=True)
+    created = ndb.DateTimeProperty(auto_now_add=True)
+    last_modified = ndb.DateTimeProperty(auto_now=True)
 
 
     def rendered_content(self):
@@ -39,6 +38,11 @@ class Post(ndb.Model):
             String of blog post content with html breaks replaced with newlines.
         """
         return self.content.replace("<br>", "\n")
+
+
+    @classmethod
+    def query_post(cls, ancestor_key):
+        return cls.query(ancestor=ancestor_key).order(-cls.date)
 
 
 

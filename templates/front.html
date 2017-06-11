@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class='frontpage text-center'>
+    <div class='frontpage-top'>
+        <h1>The Synchronicity Collective</h1>
+        <h4>Welcome to our collective blog site.</h4>
+        <p>
+            In order to post, comment on, or like content you must be a registered user.
+        </p>
+    </div>
+
+    <h2 id='most-recent'>Most Recent Posts</h2>
+    {% for post in posts %}
+        <div class='posts'>
+            <a href="/{{post.key().id()}}">
+            <div class='post-header'>
+                <h3 class="post-title">{{ post.title}}</h3>
+                <h4>By: {{post.creator}}</h4>
+            </div>
+            <div class="post-content text-justify">
+                {{ post.rendered_content() | safe }}
+            </div>
+            <div class="post-bottom container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+                        {{post.last_modified.strftime("Last Modified: %b %d, %Y %I:%M %p")}}
+                    </div>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <hr>
+    {% endfor %}
+</div>
+
+<footer class="row text-center">
+        <div class="col-md-3">
+            <a href='https://ian-agpawa.appspot.com' target="_blank">
+                <p> &copy; 2016 Ian Agpawa</p>
+            </a>
+        </div>
+        <div class="col-md-4">
+             <i class="fa fa-google fa-f"></i> agpawaji@gmail.com
+        </div>
+        <div class="col-md-1">
+            <a href="https://github.com/ianagpawa" target="_blank"
+                class="letter">
+              <i class="fa fa-github-square fa-f"></i>
+            </a>
+        </div>
+        <div class="col-md-1">
+            <a href="https://twitter.com/theartilect" target="_blank"
+                class="letter">
+                <i class="fa fa-twitter fa-f"></i>
+            </a>
+        </div>
+
+        <div class="col-md-1">
+            <a href="http://www.freecodecamp.com/theartilect"
+                target="_blank" class="letter">
+               <i class="fa fa-fire fa-f"></i>
+             </a>
+        </div>
+        <div class="col-md-1">
+            <a href="https://www.linkedin.com/in/ianagpawa"
+                target="_blank" class="letter">
+                <i class="fa fa-linkedin-square fa-f"></i>
+            </a>
+        </div>
+        <div class="col-md-1">
+            <a target="_blank"
+                href="http://www.freepik.com/free-vector/wrinkled-paper-texture_851248.htm">
+                <i class="fa fa-picture-o" aria-hidden="true"></i>
+            </a>
+        </div>
+
+</footer>
+
+{% endblock %}

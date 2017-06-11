@@ -1,6 +1,3 @@
-import cgi
-import textwrap
-import urllib
 
 from google.appengine.ext import ndb
 

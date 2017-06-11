@@ -21,7 +21,6 @@ app = Flask(__name__)
 @app.route('/')
 def front():
     posts = Post.query()
-
     return render_template("front.html", posts=posts)
 
 
@@ -38,7 +37,10 @@ def newPost():
     else:
         return render_template("new_post.html")
 
-phrase = "That'sGold,Jerry.GOLD!"
+
+
+
+phrase = "DontYourPutThatEvilOnMeRickyBobby"
 def make_secure(unsecured):
     """
     make_secure: method for creating a secure password keyed-hash using HMAC
@@ -82,7 +84,7 @@ def login():
             value (data type: str): Value of a cookie
         """
         secured_cookie = make_secure(value)
-        return self.response.headers.add_header(
+        return response.headers.add_header(
             'Set-Cookie',
             "%s=%s; Path=/" % (name, secured_cookie)
         )
@@ -96,7 +98,7 @@ def login():
         Returns:
             True or False
         """
-        secured_cookie = self.request.cookies.get(name)
+        secured_cookie = request.cookies.get(name)
         return secured_cookie and check_secure(secured_cookie)
 
     def login(self, user):
@@ -112,12 +114,28 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        user = User.login(username, password)
-        if user:
-            self.login(user)
-            return redirect("/")
+        user = User.query()
+        user = user.filter(User.name == username).fetch()
+
+
+        if len(user) > 0:
+            key = user[0].key
+            print user[0]
+            print user[0].name
+            name = user[0].name
+            pass_hash = user[0].pass_hash
+            if username == name and password == pass_hash:
+                return redirect("/")
+            else:
+                return redirect("/login")
         else:
-            return self.write("WRONG")
+            return render_template("signup.html")
+        # user = User.login(username, password)
+        # if user:
+        #     self.login(user)
+        #     return redirect("/")
+        # else:
+        #     return redirect("/signup")
     else:
         return render_template('login.html')
 

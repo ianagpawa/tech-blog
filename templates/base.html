@@ -33,20 +33,27 @@
           <a class="navbar-brand nbar-top" href="/"><span>Chronicle</span></a>
         </div>
 
-
+        {% if state %}
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="/newpost"><span>New Post</span></a></li>
+            <li><a href="/new"><span>New Post</span></a></li>
           </ul>
-
-
+        {% endif %}
+        <ul class="nav navbar-nav">
+          {% if state %}
+          <li><a href="/logout"><span>logout</span></a></li>
+          {% else %}
+          <li><a href="/login"><span>login</span></a></li>
+          {% endif %}
+        </ul>
 
         </div><!-- /.navbar-collapse -->
+
       </div><!-- /.container-fluid -->
     </nav>
     <div class="col-md-6 col-md-offset-3">
         {% block content %}
-        
+
         {% endblock %}
     </div>
     </body>

@@ -1,16 +1,14 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash, \
                     make_response, jsonify, session, escape
-#   imports for authentication
+
 import random
 import string
 import hashlib
-import hmac
-from string import letters
-
-
 import re
 import json
+
+from string import letters
 from functools import wraps
 
 from Post import Post
@@ -26,23 +24,28 @@ app.secret_key = 'IsThatYouJohnWayne?'
 def front():
     if 'username' in session:
         username = session['username']
-        print username
-    posts = Post.query()
-    return render_template("front.html", posts=posts)
+        state = True
+    else:
+        state = False
+    posts = Post.query().order(-Post.created)
+    return render_template("front.html", posts=posts, state=state)
 
 
 @app.route("/new/", methods=['GET', 'POST'])
 def newPost():
-    if request.method == "POST":
-        if request.form['title'] and request.form['content']:
-            title = request.form['title']
-            content = request.form['content']
-            post = Post(title=title, content=content)
-            post.put()
-            return redirect("/")
+    if 'username' in session and session['username'] == 'Ian Agpawa':
+        if request.method == "POST":
+            if request.form['title'] and request.form['content']:
+                title = request.form['title']
+                content = request.form['content']
+                post = Post(title=title, content=content)
+                post.put()
+                return redirect("/")
 
+        else:
+            return render_template("new_post.html", state=True)
     else:
-        return render_template("new_post.html")
+        return redirect("/")
 
 
 
@@ -78,7 +81,7 @@ def logout():
     session.pop("username", None)
     return redirect("/")
 
-    
+
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
 

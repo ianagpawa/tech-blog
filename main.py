@@ -33,7 +33,7 @@ def front():
 
 @app.route("/new/", methods=['GET', 'POST'])
 def newPost():
-    if 'username' in session and session['username'] == 'Ian Agpawa':
+    if 'username' in session and session['username'] == 'Ian':
         if request.method == "POST":
             if request.form['title'] and request.form['content']:
                 title = request.form['title']

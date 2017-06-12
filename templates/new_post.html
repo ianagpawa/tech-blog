@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class='container-fluid'>
-    <div class='col-md-6 col-md-offset-3 flash text-center'>
-
+<div class='col-md-12 text-center'>
         <br>
         <h3>Create a Post</h3>
         <form method='post'>
+            <div class='input-forms'>
             <input type='text' class='input-post' name='title'
                 placeholder="Title (Required)">
             <br>
@@ -19,14 +18,20 @@
             <input type='text' class='input-post' name='github-link'
                 placeholder="Github Link">
             <br>
-            <textarea name="content" id='new-post-textarea'></textarea>
+            </div>
             <br>
-            <a>
+            <br>
+            <div>
+                <textarea name="content" id='new-post-textarea'></textarea>
+                <br>
+            </div>
+            <br>
+            <a class='col-md-1 col-md-offset-1 text-left' href="{{url_for('front')}}">
                 Cancel
             </a>
-            <input id='add-song' class='CRUD-button' type='submit' value='Add'>
+            <input class='col-md-2 col-md-offset-7 CRUD-button' type='submit' value='Submit'>
         </form>
 
-    </div>
+
 </div>
 {% endblock %}

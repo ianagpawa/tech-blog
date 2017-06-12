@@ -38,7 +38,16 @@ def newPost():
             if request.form['title'] and request.form['content']:
                 title = request.form['title']
                 content = request.form['content']
-                post = Post(title=title, content=content)
+                project = request.form['project']
+                pj_link = request.form['pj-link']
+                github = request.form['github-link']
+                creator = "Ian Agpawa"
+                post = Post(title=title,
+                            content=content,
+                            project=project,
+                            project_link = pj_link,
+                            github = github,
+                            creator=creator)
                 post.put()
                 return redirect("/")
 
@@ -70,7 +79,8 @@ def login():
             else:
                 return redirect("/login")
         else:
-            return render_template("signup.html")
+            #   Change to redirect to signup later if needed
+            return redirect("/")
     else:
         return render_template("login.html")
 
@@ -130,7 +140,7 @@ def valid_pass(name, password, hashed):
 
 
 
-
+#
 #
 #
 # USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")

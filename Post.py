@@ -14,6 +14,10 @@ class Post(ndb.Model):
 
 
     title = ndb.StringProperty(required=True)
+    project = ndb.StringProperty()
+    project_link = ndb.StringProperty()
+    github = ndb.StringProperty()
     content = ndb.TextProperty(required=True)
+    creator = ndb.StringProperty()
     created = ndb.DateTimeProperty(auto_now_add=True)
     last_modified = ndb.DateTimeProperty(auto_now=True)

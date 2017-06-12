@@ -11,16 +11,33 @@
 
     <h2 id='most-recent'>Most Recent Posts</h2>
     {% for post in posts %}
-    <div class='posts'>
+    <div class='posts text-left'>
         <div class='post-header'>
-            <h3 class="post-title">{{ post.title}}</h3>
+            <h3 class="post-title text-center">{{ post.title}}</h3>
         </div>
+        <div class='project-info container-fluid'>
+            <h4>Project: {{post.project}}</h4>
+
+            {% if post.project_link %}
+            <h5>
+                Website: <a href="{{post.project_link}}" target="_blank">{{post.project_link}}</a>
+            </h5>
+            {% endif %}
+
+            {% if post.github %}
+            <h5>
+                Github: <a href="{{post.github}}" target="_blank">Link</a>
+            </h5>
+            {% endif %}
+        </div>
+        <br>
         <div class="post-bottom container-fluid">
             <div>
                 {{post.content}}
             </div>
-            <div class="row">
-                <div class="col-md-5">
+            <br>
+            <div class="col-md-12 row">
+                <div class="col-md-5 col-md-offset-7 text-right">
                     {{post.last_modified.strftime("Last Modified: %b %d, %Y %I:%M %p")}}
                 </div>
             </div>
@@ -35,7 +52,7 @@
 <footer class="row text-center">
         <div class="col-md-3">
             <a href='https://ian-agpawa.appspot.com' target="_blank">
-                <p> &copy; 2016 Ian Agpawa</p>
+                <p> &copy; 2017 Ian Agpawa</p>
             </a>
         </div>
         <div class="col-md-4">

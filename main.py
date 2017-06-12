@@ -5,6 +5,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, \
 from flask import session as login_session
 import random
 import string
+import hashlib
+from string import letters
+
+
 import re
 import json
 from functools import wraps
@@ -36,6 +40,7 @@ def newPost():
 
     else:
         return render_template("new_post.html")
+
 
 
 
@@ -117,14 +122,12 @@ def login():
         user = User.query()
         user = user.filter(User.name == username).fetch()
 
-
+        print user[0]
         if len(user) > 0:
-            key = user[0].key
-            print user[0]
-            print user[0].name
             name = user[0].name
             pass_hash = user[0].pass_hash
-            if username == name and password == pass_hash:
+
+            if username == name and valid_pass(name, password, pass_hash):
                 return redirect("/")
             else:
                 return redirect("/login")
@@ -181,11 +184,53 @@ def valid_email(email):
 
 
 
+
+def make_salt():
+    """
+    make_salt:  Method for creating salt string for use of hashing user
+                passwords.
+    Returns:
+        Random string of length five.
+    """
+    string = ''
+    for x in range(0,5):
+        string += random.choice(letters)
+    return string
+
+
+def make_pass_hash(name, password, salt = None):
+    """
+    make_pass_hash: Method for creating password hash.
+    Args:
+        name (data type: str): String of user's name.
+        password (data type: str): String of user's password.
+        salt (data type: str): Sting of random five characters.
+    Returns:
+        A string hashed with the password and a random salt string.
+    """
+    if not salt:
+        salt = make_salt()
+    hashed = hashlib.sha256(name + password + salt).hexdigest()
+    return '%s|%s' % (hashed, salt)
+
+
+def valid_pass(name, password, hashed):
+    """
+    valid_pass: Method for checking if a hashed string matches the string of a
+                user's password after it has been hashed.
+    Args:
+        name (data type: str): User's name
+        password (data type: str): User's password
+        hashed (data type: str) Hashed password
+    """
+    salt = hashed.split('|')[1]
+    return hashed == make_pass_hash(name, password, salt)
+
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
 
     if request.method == "POST":
-
         if request.form['username'] and request.form['password']:
             username = request.form["username"]
             password = request.form["password"]
@@ -213,13 +258,11 @@ def signup():
                     error_message = "User already exists."
                     return render_template("signup.html", error_username = error_message)
                 else:
-                    new_user = User(name=username, pass_hash=password, email=email)
+                    pass_hash = make_pass_hash(username, password)
+                    new_user = User(name=username, pass_hash=pass_hash, email=email)
                     new_user.put()
                     return redirect("/")
         else:
             return redirect('/login')
     else:
-        a = User.query()
-        for u in a:
-            print u
         return render_template("signup.html")

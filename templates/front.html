@@ -12,6 +12,7 @@
     <hr>
 
     {% for post in posts %}
+    <a href="{{url_for('showPost', post_id=post.key.id())}}">
     <div class='posts text-left'>
         <div class='post-header'>
             <h3 class="post-title text-center">{{ post.title}}</h3>
@@ -45,6 +46,7 @@
         </div>
         </a>
     </div>
+
 
     <hr>
     {% endfor %}

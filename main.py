@@ -28,6 +28,8 @@ def front():
     else:
         state = False
     posts = Post.query().order(-Post.created)
+    # for p in posts:
+    #     print p.key.id()
     return render_template("front.html", posts=posts, state=state)
 
 
@@ -45,8 +47,8 @@ def newPost():
                 post = Post(title=title,
                             content=content,
                             project=project,
-                            project_link = pj_link,
-                            github = github,
+                            project_link=pj_link,
+                            github=github,
                             creator=creator)
                 post.put()
                 return redirect("/")
@@ -55,7 +57,6 @@ def newPost():
             return render_template("new_post.html", state=True)
     else:
         return redirect("/")
-
 
 
 
@@ -93,6 +94,27 @@ def logout():
     return redirect("/")
 
 
+@app.route("/post/<int:post_id>/")
+def showPost(post_id):
+    post = Post.get_by_id(post_id)
+    if 'username' in session and session['username'] == 'Ian':
+        return render_template('post_L.html', post=post)
+    else:
+        return render_template('post.html', post=post)
+
+
+
+@app.route('/post/<int:post_id>/edit')
+def editPost(post_id):
+    post = Post.get_by_id(post_id)
+
+    if request.method == "POST":
+        pass
+    else:
+        if session['username'] and session['username'] == 'Ian':
+            return render_template("edit_post.html", post=post)
+        else:
+            return redirect('/')
 
 
 
@@ -140,86 +162,85 @@ def valid_pass(name, password, hashed):
 
 
 
-#
-#
-#
-# USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
-#
-# PASSWORD_RE = re.compile(r"^.{3,20}$")
-#
-# EMAIL_RE = re.compile(r"^[\S]+@[\S]+.[\S]+$")
-#
-# def valid_username(username):
-#     """
-#     valid_username: Method for checking if a user name is valid.
-#     Args:
-#         username (data type: str):  A user's name.
-#     Returns:
-#         True or False
-#     """
-#     return username and USER_RE.match(username)
-#
-#
-# def valid_password(password):
-#     """
-#     valid_password: Method for checking if a user password is valid.
-#     Args:
-#         password (data type: str):  A user's password.
-#     Returns:
-#         True or False
-#     """
-#     return password and PASSWORD_RE.match(password)
-#
-#
-# def valid_email(email):
-#     """
-#     valid_email: Method for checking if a user's email is valid.
-#     Args:
-#         email (data type: str):  A user's email.
-#     Returns:
-#         True or False.
-#     """
-#     return not email or EMAIL_RE.match(email)
-#
-#
-#
-# @app.route("/signup/", methods=["GET", "POST"])
-# def signup():
-#
-#     if request.method == "POST":
-#         if request.form['username'] and request.form['password']:
-#             username = request.form["username"]
-#             password = request.form["password"]
-#             verify = request.form['verify']
-#             email = request.form["email"]
-#             params = dict(username=username, email=email)
-#
-#             if not valid_username(username):
-#                 params['error_username'] = "Not a valid username."
-#
-#             if not valid_password(password):
-#                 params["error_password"] = "Not a valid password."
-#             elif password != verify:
-#                 params['error_verify'] = "Your passwords don't match."
-#
-#             if not valid_email(email):
-#                 params['error_email'] = "Not a valid email."
-#
-#             if len(params) > 2:
-#                 return render_template("signup.html", **params)
-#             else:
-#                 user = User.query()
-#                 user = user.filter(User.name == username).fetch()
-#                 if len(user) > 0:
-#                     error_message = "User already exists."
-#                     return render_template("signup.html", error_username = error_message)
-#                 else:
-#                     pass_hash = make_pass_hash(username, password)
-#                     new_user = User(name=username, pass_hash=pass_hash, email=email)
-#                     new_user.put()
-#                     session['username'] = username
-#                     return redirect("/")
-#         else:
-#             return redirect('/login')
-#     else:
-#         return render_template("signup.html")
+
+
+USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
+
+PASSWORD_RE = re.compile(r"^.{3,20}$")
+
+EMAIL_RE = re.compile(r"^[\S]+@[\S]+.[\S]+$")
+
+def valid_username(username):
+    """
+    valid_username: Method for checking if a user name is valid.
+    Args:
+        username (data type: str):  A user's name.
+    Returns:
+        True or False
+    """
+    return username and USER_RE.match(username)
+
+
+def valid_password(password):
+    """
+    valid_password: Method for checking if a user password is valid.
+    Args:
+        password (data type: str):  A user's password.
+    Returns:
+        True or False
+    """
+    return password and PASSWORD_RE.match(password)
+
+
+def valid_email(email):
+    """
+    valid_email: Method for checking if a user's email is valid.
+    Args:
+        email (data type: str):  A user's email.
+    Returns:
+        True or False.
+    """
+    return not email or EMAIL_RE.match(email)
+
+
+
+@app.route("/signup/", methods=["GET", "POST"])
+def signup():
+
+    if request.method == "POST":
+        if request.form['username'] and request.form['password']:
+            username = request.form["username"]
+            password = request.form["password"]
+            verify = request.form['verify']
+            email = request.form["email"]
+            params = dict(username=username, email=email)
+
+            if not valid_username(username):
+                params['error_username'] = "Not a valid username."
+
+            if not valid_password(password):
+                params["error_password"] = "Not a valid password."
+            elif password != verify:
+                params['error_verify'] = "Your passwords don't match."
+
+            if not valid_email(email):
+                params['error_email'] = "Not a valid email."
+
+            if len(params) > 2:
+                return render_template("signup.html", **params)
+            else:
+                user = User.query()
+                user = user.filter(User.name == username).fetch()
+                if len(user) > 0:
+                    error_message = "User already exists."
+                    return render_template("signup.html", error_username = error_message)
+                else:
+                    pass_hash = make_pass_hash(username, password)
+                    new_user = User(name=username, pass_hash=pass_hash, email=email)
+                    new_user.put()
+                    session['username'] = username
+                    return redirect("/")
+        else:
+            return redirect('/login')
+    else:
+        return render_template("signup.html")

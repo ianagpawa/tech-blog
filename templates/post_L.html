@@ -38,11 +38,12 @@
         <a class='edit'
             href="{{url_for('editPost',
                 post_id = post.key.id())}}">
-            Edit Playlist
+            Edit Post
         </a>
         |
         <a class='delete playlist-description'
-            href="">
+            href="{{url_for('deletePost',
+                post_id = post.key.id())}}">
             Delete
         </a>
     </div>

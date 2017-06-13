@@ -104,38 +104,50 @@ def showPost(post_id):
 
 
 
-@app.route('/post/<int:post_id>/edit', methods=["GET", "POST"])
+@app.route('/post/<int:post_id>/edit/', methods=["GET", "POST"])
 def editPost(post_id):
     post = Post.get_by_id(post_id)
+    if 'username' in session and session['username'] == 'Ian':
+        if request.method == "POST":
+            if request.form['change-title'] and request.form['change-content']:
+                title = request.form['change-title']
+                post.title = title
 
-    if request.method == "POST":
-        if request.form['change-title'] and request.form['change-content']:
-            title = request.form['change-title']
-            post.title = title
+                content = request.form['change-content']
+                post.content = content
 
-            content = request.form['change-content']
-            post.content = content
+                project = request.form['change-project']
+                post.project = project
 
-            project = request.form['change-project']
-            post.project = project
+                pjLink = request.form['change-pj-link']
+                post.project_link = pjLink
 
-            pjLink = request.form['change-pj-link']
-            post.project_link = pjLink
+                github = request.form['change-github']
+                post.github = github
 
-            github = request.form['change-github']
-            post.github = github
+                post.put()
 
-            post.put()
-
-            return redirect(url_for("showPost", post_id = post_id))
+                return redirect(url_for("showPost", post_id = post_id))
 
 
-    else:
-        if session['username'] and session['username'] == 'Ian':
-            return render_template("edit_post.html", post=post)
         else:
-            return redirect('/')
+            return render_template("edit_post.html", post=post)
+    else:
+        return redirect('/')
 
+
+@app.route('/post/<int:post_id>/delete/', methods=["GET", "POST"])
+def deletePost(post_id):
+    post = Post.get_by_id(post_id)
+    if 'username' in session and session['username'] == "Ian":
+        if request.method == "POST":
+            if request.form['delete_post']:
+                post.key.delete()
+                return redirect("/")
+        else:
+            return render_template('delete_post.html')
+    else:
+        return redirect("/")
 
 
 

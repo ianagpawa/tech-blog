@@ -104,12 +104,32 @@ def showPost(post_id):
 
 
 
-@app.route('/post/<int:post_id>/edit')
+@app.route('/post/<int:post_id>/edit', methods=["GET", "POST"])
 def editPost(post_id):
     post = Post.get_by_id(post_id)
 
     if request.method == "POST":
-        pass
+        if request.form['change-title'] and request.form['change-content']:
+            title = request.form['change-title']
+            post.title = title
+
+            content = request.form['change-content']
+            post.content = content
+
+            project = request.form['change-project']
+            post.project = project
+
+            pjLink = request.form['change-pj-link']
+            post.project_link = pjLink
+
+            github = request.form['change-github']
+            post.github = github
+
+            post.put()
+
+            return redirect(url_for("showPost", post_id = post_id))
+
+
     else:
         if session['username'] and session['username'] == 'Ian':
             return render_template("edit_post.html", post=post)

@@ -15,3 +15,30 @@ textarea {
 .input-post {
     width: 25vw;
 }
+
+.post-link,
+.project-links {
+    color: black;
+}
+
+.post-title{
+    margin-bottom: 1vh;
+}
+
+.post-bottom{
+    margin-top: 1vh;
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.post-content{
+    margin-top: 2vh;
+}
+
+
+hr{
+    color: black;
+}
+
+.footer{
+    margin-top: 5vh;
+}

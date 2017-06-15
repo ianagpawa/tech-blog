@@ -28,25 +28,27 @@
         </div>
         <br>
         <div class="col-md-12 row">
-            <div class="col-md-5 col-md-offset-7 text-right">
+            <div class='col-md-6 play-button' >
+                <a class='edit'
+                    href="{{url_for('editPost',
+                        post_id = post.key.id())}}">
+                    Edit Post
+                </a>
+                |
+                <a class='delete playlist-description'
+                    href="{{url_for('deletePost',
+                        post_id = post.key.id())}}">
+                    Delete
+                </a>
+            </div>
+
+            <div class="col-md-6 text-right">
                 {{post.last_modified.strftime("Last Modified: %b %d, %Y %I:%M %p")}}
             </div>
         </div>
     </div>
 
-    <div class='col-md-8 play-button' >
-        <a class='edit'
-            href="{{url_for('editPost',
-                post_id = post.key.id())}}">
-            Edit Post
-        </a>
-        |
-        <a class='delete playlist-description'
-            href="{{url_for('deletePost',
-                post_id = post.key.id())}}">
-            Delete
-        </a>
-    </div>
+
 
 </div>
 

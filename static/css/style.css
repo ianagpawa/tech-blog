@@ -1,6 +1,11 @@
 
+
 body{
     padding-top: 5vh;
+}
+
+.frontpage{
+    margin-top: 5vh;
 }
 
 #main-title{
@@ -35,10 +40,34 @@ textarea {
 }
 
 
+.post-label{
+    width: 20vw;
+}
+
+#edit-post-textarea{
+    margin-top: 3vh;
+}
+
 hr{
     color: black;
 }
 
 .footer{
     margin-top: 5vh;
+}
+
+a {
+    color: black;
+}
+
+.letter{
+    font-size: 18px;
+}
+
+.letter:hover{
+    color: orange;
+}
+
+.delete{
+    color: red;
 }

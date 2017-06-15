@@ -11,29 +11,36 @@
 
         <br>
         <br>
-        <div class="text-left">
-            <label>Project</label>
-            <input class='post-label' type='text' name='change-project' value='{{post.project}}'>
-            <label>Website Link</label>
-            <input class='post-label' type='text' name='change-pj-link' value='{{post.project_link}}'>
-            <label>Github Link</label>
-            <input class='post-label' type='text' name='change-github' value='{{post.github}}'>
+        <div class="text-right col-md-12">
+            <div class='col-md-12'>
+                <label class='col-md-3'>Project</label>
+                <input class='post-label col-md-4' type='text' name='change-project' value='{{post.project}}'>
+            </div>
+
+            <br>
+            <div class='col-md-12'>
+                <label class='col-md-3'>Website Link</label>
+                <input class='col-md-4 post-label' type='text' name='change-pj-link' value='{{post.project_link}}'>
+            </div>
+            <br>
+            <div class='col-md-12'>
+                <label class='col-md-3'>Github Link</label>
+                <input class='col-md-4 post-label' type='text' name='change-github' value='{{post.github}}'>
+            </div>
          </div>
 
-        <h3>Posting</h3>
         <textarea id='edit-post-textarea' name="change-content">{{ post.render_back() | safe }}</textarea>
 
 
         <br>
-        <div class="container">
-            <div class="row">
-                <input id='edit-submit' class='col-md-1' type="submit">
+        <div class="container row">
+            <div class="col-md-3">
+                <a href='{{url_for("showPost", post_id=post.key.id())}}'>Cancel</a>
+            </div>
+            <div class="col-md-4">
+                <input id='edit-submit' type="submit">
             </div>
         </div>
-    </form>
-    <form method='post'>
-        <input type='submit' name="cancel_edit_post"
-        id='edit-cancel' class='col-md-1' value='Cancel'>
     </form>
 </div>
 

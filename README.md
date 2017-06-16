@@ -6,45 +6,72 @@
 ### Quick Start
 -Clone the repo: `git clone https://github.com/ianagpawa/tech-blog.git`
 
-#### Viewing the deployed app
-In order to view the deployed app, point your browser to `https://chronicle-170419.appspot.com/`
+
+#### Dependencies
+This app requires `google app engine (python)` and `gcloud` installed on your system. Additionally, the following third-party libraries are also required and should be listed in file `requirements.txt` located in the root directory:
+```
+Flask==0.12.1
+google-cloud-datastore==0.22.1
+gunicorn==19.6.0
+```
+File `appengine_config.py` in the root directory is used to specify where to look for third-party libraries.  To install dependencies:
+1. Install `virtualenv` on your local machine (Linux):
+```
+$   sudo apt get install virtualenv
+```
+2. Enter isolated Python environment:
+```
+$   virtualenv env
+$   source env/bin/activate
+```
+
+3. Install third-party libraries:
+```
+$   pip install -t lib -r requirements.txt
+```
+
+4.  You can exit the isolated Python environment at this point.
+```
+$   deactivate
+```
+
 
 #### Viewing the app locally
-In order to run the app locally, you will need `google app engine (python)` and `gcloud` installed on your system.  Run the command `dev_appserver.py .` while the terminal is in the project directory, then point your browser to `0.0.0.0:8080`
+While the terminal is in the root directory, run the following command:
+```
+$   dev_appserver.py .
+```
 
 
-#TODO NEED TO REVISE AND UPDATE INFO AFTER THIS
-### What's included
+### File structure
 Within the project folder, you will find the following files:
 
 ```
-synchronicity/
+tech-blog/
+    ├── .git/ (NOT INCLUDED)
+    ├── env/  (NOT INCLUDED)
+    ├── lib/  (NOT INCLUDED)
     ├── static/
-    |    ├── css/
-    |    |    └── style.css
-    |    └── images/
-    |          └── O5GLLH0.jpg
+    |    └── css/
+    |        └──  style.css
     ├── templates/
     |    ├── base.html
-    |    ├── edit_comment.html
-    |    ├── frontpage.html
+    |    ├── delete_post.html
+    |    ├── edit_post.html
+    |    ├── front.html
     |    ├── login.html
     |    ├── new_post.html
-    |    ├── permalink.html
-    |    ├── sign_up.html
-    |    └── welcome.html
+    |    ├── post_L.html
+    |    ├── post.html
+    |    └── signup.html
+    ├── .gitignore
     ├── app.yaml
-    ├── Comment.py
-    ├── Handler.py
-    ├── index.yaml
-    ├── Login.py
-    ├── Logout.py
+    ├── appengine_config.py
+    ├── config.py
     ├── main.py
-    ├── NewPostPage.py
     ├── Post.py
-    ├── PostPage.py
     ├── README.md
-    ├── SignUpPage.py
+    ├── requirements.txt
     ├── User.py
     └── WelcomePage.py
 ```

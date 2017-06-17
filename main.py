@@ -98,7 +98,7 @@ def logout():
 def showPost(post_id):
     post = Post.get_by_id(post_id)
     if 'username' in session and session['username'] == 'Ian':
-        return render_template('post_L.html', post=post)
+        return render_template('post_L.html', post=post, state=True)
     else:
         return render_template('post.html', post=post)
 

@@ -26,7 +26,7 @@
     <br>
     <div class="post-bottom container-fluid">
         <div>
-            {{post.content}}
+            {{post.rendered_content() | safe}}
         </div>
         <br>
     </div>

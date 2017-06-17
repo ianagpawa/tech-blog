@@ -3,22 +3,24 @@
 {% block content %}
 
 <div class='posts text-left'>
-    <div class='post-header'>
-        <h3 class="post-title text-center">{{ post.title}}</h3>
-    </div>
+
     <div class='project-info container-fluid'>
+        <div class='post-header'>
+            <h1 class="post-title text-left">{{ post.title}}</h1>
+            <h3>By Ian Agpawa - {{post.last_modified.strftime("%b %d, %Y")}}</h3>
+        </div>
         <h4>Project: {{post.project}}</h4>
 
         {% if post.project_link %}
-        <h5>
+        <h4>
             Website: <a href="{{post.project_link}}" target="_blank">{{post.project_link}}</a>
-        </h5>
+        </h4>
         {% endif %}
 
         {% if post.github %}
-        <h5>
+        <h4>
             Github: <a href="{{post.github}}" target="_blank">Link</a>
-        </h5>
+        </h4>
         {% endif %}
     </div>
     <br>
@@ -27,11 +29,6 @@
             {{post.content}}
         </div>
         <br>
-        <div class="col-md-12 row">
-            <div class="col-md-5 col-md-offset-7 text-right">
-                {{post.last_modified.strftime("Last Modified: %b %d, %Y %I:%M %p")}}
-            </div>
-        </div>
     </div>
 
 

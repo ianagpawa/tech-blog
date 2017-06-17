@@ -1,7 +1,17 @@
+.top-part{
+    background-color: #252525;
+}
 
+.chronicle{
+    color: white;
+    font-variant: small-caps;
+}
 
 body{
+    font-family: 'Spectral', serif;
+    font-size: 22px;
     padding-top: 5vh;
+    background-color: #FCFCFC;
 }
 
 .frontpage{
@@ -10,6 +20,8 @@ body{
 
 #main-title{
     font-size: 50px;
+    font-family: 'Spectral', serif;
+    font-variant: small-caps;
 }
 
 textarea {
@@ -27,7 +39,9 @@ textarea {
 }
 
 .post-title{
-    margin-bottom: 1vh;
+    margin-top: 3vh;
+    font-size: 3em;
+    font-weight: bold;
 }
 
 .post-bottom{
@@ -58,10 +72,11 @@ hr{
 
 a {
     color: black;
+    /*font-size: 20px*/
 }
 
 .letter{
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .letter:hover{

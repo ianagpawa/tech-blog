@@ -4,10 +4,9 @@
 
 <div class='posts text-left'>
     <div class='project-info container-fluid'>
-        <div class='post-header'>
-            <h1 class="post-title text-left">{{ post.title}}</h1>
-            <h3>By Ian Agpawa - {{post.last_modified.strftime("%b %d, %Y")}}</h3>
-        </div>
+        <h1 class="post-title text-left">{{ post.title}}</h1>
+        <h4>By Ian Agpawa, {{post.last_modified.strftime("%b %d, %Y")}}</h4>
+        <br>
         <h4>Project: {{post.project}}</h4>
 
         {% if post.project_link %}
@@ -29,19 +28,17 @@
         </div>
         <br>
         <div class="col-md-12 row">
-            <div class='col-md-6 play-button' >
-                <a class='edit'
-                    href="{{url_for('editPost',
-                        post_id = post.key.id())}}">
-                    Edit Post
-                </a>
-                |
-                <a class='delete playlist-description'
-                    href="{{url_for('deletePost',
-                        post_id = post.key.id())}}">
-                    Delete
-                </a>
-            </div>
+            <a class='edit'
+                href="{{url_for('editPost',
+                    post_id = post.key.id())}}">
+                Edit Post
+            </a>
+            |
+            <a class='delete playlist-description'
+                href="{{url_for('deletePost',
+                    post_id = post.key.id())}}">
+                Delete
+            </a>
 
         </div>
     </div>

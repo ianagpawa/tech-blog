@@ -51,6 +51,13 @@ textarea {
     width: 25vw;
 }
 
+
+.post-label{
+    width: 20vw;
+}
+
+
+/*POST PAGE*/
 .post-link,
 .project-links {
     color: black;
@@ -78,16 +85,28 @@ textarea {
     margin-top: 1vh;
     margin-bottom: 2vh;
     border-bottom: 1px solid #D3D3D3;
+    font-size: 1.3em;
+}
+
+.post-bottom{
+    border-bottom: 0;
 }
 
 .post-content{
     margin-top: 3vh;
-    font-size: 1.3em;
 }
 
 
-.post-label{
-    width: 20vw;
+.CRUD {
+    border-top: 1px solid #D3D3D3;
+    padding-top: 1vh;
+}
+.edit{
+    color: green;
+}
+.delete{
+
+    color: red;
 }
 
 /*EDIT POST PAGE*/
@@ -96,12 +115,6 @@ textarea {
 }
 
 
-.edit{
-    color: green;
-}
-.delete{
-    color: red;
-}
 
 hr{
     color: black;

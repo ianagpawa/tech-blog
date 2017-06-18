@@ -7,7 +7,7 @@
         <h1 class="post-title text-left">{{ post.title}}</h1>
         <h4>By Ian Agpawa, {{post.last_modified.strftime("%b %d, %Y")}}</h4>
         <hr>
-        
+
         <h4>Project: {{post.project}}</h4>
 
         {% if post.project_link %}
@@ -23,19 +23,19 @@
         {% endif %}
     </div>
     <br>
-    <div class="post-bottom container-fluid">
+    <div class="post-bottom post-bottom-logged container-fluid">
         <div>
             {{post.rendered_content() | safe }}
         </div>
         <br>
-        <div class="col-md-12 row">
+        <div class="col-md-12 row CRUD">
             <a class='edit'
                 href="{{url_for('editPost',
                     post_id = post.key.id())}}">
                 Edit Post
             </a>
             |
-            <a class='delete playlist-description'
+            <a class='delete'
                 href="{{url_for('deletePost',
                     post_id = post.key.id())}}">
                 Delete

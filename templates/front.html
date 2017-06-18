@@ -17,33 +17,26 @@
         <a href="{{url_for('showPost', post_id=post.key.id())}}" class='post-link'>
         <div class='col-md-12'>
 
-            <div class='post-header'>
-                <h3 class="post-title">{{ post.title}}</h3>
-
-                <h5>{{post.last_modified.strftime("%b %d, %Y")}}</h5>
-
-                {% if post.project %}
-                <h4 class='text-left'>Project: {{post.project}}</h4>
-                {% endif %}
-            </div>
-
-
+            <h1 class="post-title text-left">{{ post.title}}</h1>
+            <h>{{post.last_modified.strftime("%b %d, %Y")}}</h4>
+            <br>
+            <h3>Project: {{post.project}}</h3>
             <p class='post-content'>{{post.rendered_content() | safe }}</p>
         </div>
         </a>
         <div class="col-md-12 row post-bottom">
             <div class='col-md-3'>
                 {% if post.project_link %}
-                <h5>
+                <h4>
                     <a href="{{post.project_link}}" class='project-links' target="_blank">Live Website Link</a>
-                </h5>
+                </h4>
                 {% endif %}
             </div>
             <div class='col-md-3'>
                 {% if post.github %}
-                <h5>
+                <h4>
                     <a href="{{post.github}}" class='project-links' target="_blank">Github Link</a>
-                </h5>
+                </h4>
                 {% endif %}
             </div>
 

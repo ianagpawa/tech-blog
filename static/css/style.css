@@ -1,7 +1,7 @@
 /*GENERAL*/
 body{
     font-family: 'Spectral', serif;
-    font-size: 21px;
+    font-size: 20px;
     padding-top: 5vh;
     background-color: #FCFCFC;
 }
@@ -23,6 +23,7 @@ a:hover {
     color: white;
     font-variant: small-caps;
     font-weight: bold;
+    font-size: 24px;
 }
 
 
@@ -32,11 +33,11 @@ a:hover {
 }
 
 #main-title{
-    font-size: 50px;
-    font-family: 'Spectral', serif;
+    font-size: 65px;
     font-variant: small-caps;
     font-weight: bold;
 }
+
 
 
 /*POST*/
@@ -61,20 +62,27 @@ textarea {
 }
 
 
-.post-title{
+.post-title,
+.post-title-pg {
     margin-top: 3vh;
-    font-size: 3em;
-    font-weight: bold;
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+
+.project-info{
+    margin-top: 2vh;
 }
 
 .post-bottom{
     margin-top: 1vh;
+    margin-bottom: 2vh;
     border-bottom: 1px solid #D3D3D3;
 }
 
 .post-content{
-    margin-top: 2vh;
-    font-size: 1em;
+    margin-top: 3vh;
+    font-size: 1.3em;
 }
 
 

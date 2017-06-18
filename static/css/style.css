@@ -1,3 +1,20 @@
+/*GENERAL*/
+body{
+    font-family: 'Spectral', serif;
+    font-size: 21px;
+    padding-top: 5vh;
+    background-color: #FCFCFC;
+}
+a {
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/*BASE*/
+/*NAV*/
 .top-part{
     background-color: #252525;
 }
@@ -8,13 +25,8 @@
     font-weight: bold;
 }
 
-body{
-    font-family: 'Spectral', serif;
-    font-size: 21px;
-    padding-top: 5vh;
-    background-color: #FCFCFC;
-}
 
+/*FRONTPAGE*/
 .frontpage{
     margin-top: 5vh;
 }
@@ -23,12 +35,16 @@ body{
     font-size: 50px;
     font-family: 'Spectral', serif;
     font-variant: small-caps;
+    font-weight: bold;
 }
 
+
+/*POST*/
 textarea {
     width: 45vw;
     height: 50vh;
 }
+
 
 .input-post {
     width: 25vw;
@@ -38,6 +54,12 @@ textarea {
 .project-links {
     color: black;
 }
+
+.project-links:hover{
+    text-decoration: none;
+    color: orange;
+}
+
 
 .post-title{
     margin-top: 3vh;
@@ -60,22 +82,28 @@ textarea {
     width: 20vw;
 }
 
+/*EDIT POST PAGE*/
 #edit-post-textarea{
     margin-top: 3vh;
+}
+
+
+.edit{
+    color: green;
+}
+.delete{
+    color: red;
 }
 
 hr{
     color: black;
 }
 
+/*FOOTER*/
 .footer{
     margin-top: 5vh;
 }
 
-a {
-    color: black;
-    /*font-size: 20px*/
-}
 
 .letter{
     font-size: 22px;
@@ -83,8 +111,4 @@ a {
 
 .letter:hover{
     color: orange;
-}
-
-.delete{
-    color: red;
 }

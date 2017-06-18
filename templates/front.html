@@ -21,6 +21,7 @@
             <h>{{post.last_modified.strftime("%b %d, %Y")}}</h4>
             <br>
             <h3>Project: {{post.project}}</h3>
+            <br>
             <p class='post-content'>{{post.rendered_content() | safe }}</p>
         </div>
         </a>

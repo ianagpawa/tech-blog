@@ -11,13 +11,13 @@
         <h4>Project: {{post.project}}</h4>
         {% if post.project_link %}
         <h4>
-            Website: <a href="{{post.project_link}}" target="_blank">{{post.project_link}}</a>
+            Website: <a class='project-links' href="{{post.project_link}}" target="_blank">{{post.project_link}}</a>
         </h4>
         {% endif %}
 
         {% if post.github %}
         <h4>
-            Github: <a href="{{post.github}}" target="_blank">Link</a>
+            Github: <a class='project-links' href="{{post.github}}" target="_blank">Link</a>
         </h4>
         {% endif %}
     </div>

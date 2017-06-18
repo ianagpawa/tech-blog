@@ -121,6 +121,16 @@ hr{
 }
 
 
+/*DELETE POST*/
+
+.warning {
+    color: red;
+}
+
+.delete-button {
+    margin-left: 3vw;
+}
+
 /*FOOTER*/
 .footer{
     margin-top: 5vh;

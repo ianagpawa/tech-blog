@@ -5,11 +5,12 @@
 .chronicle{
     color: white;
     font-variant: small-caps;
+    font-weight: bold;
 }
 
 body{
     font-family: 'Spectral', serif;
-    font-size: 22px;
+    font-size: 21px;
     padding-top: 5vh;
     background-color: #FCFCFC;
 }

@@ -5,10 +5,9 @@
 <div class='posts text-left'>
 
     <div class='project-info container-fluid'>
-        <div class='post-header'>
-            <h1 class="post-title text-left">{{ post.title}}</h1>
-            <h3>By Ian Agpawa - {{post.last_modified.strftime("%b %d, %Y")}}</h3>
-        </div>
+        <h1 class="post-title text-left">{{ post.title}}</h1>
+        <h4>By Ian Agpawa, {{post.last_modified.strftime("%b %d, %Y")}}</h4>
+        <br>
         <h4>Project: {{post.project}}</h4>
 
         {% if post.project_link %}

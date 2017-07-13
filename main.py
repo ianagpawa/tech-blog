@@ -278,9 +278,9 @@ def signup():
         return render_template("signup.html")
 
 
-@app.route("/project/project/")
-def projectPosts():
-    q = Post.query()
-    q = q.filter(Post.project == 'Portfolio')
-    q = q.order(-Post.created)
-    return render_template("project.html", posts=q)
+@app.route("/projects/<string:project_name>/")
+def projectPosts(project_name):
+    posts = Post.query()
+    posts = posts.filter(Post.project == project_name)
+    posts = posts.order(-Post.created)
+    return render_template("project.html", posts=posts)

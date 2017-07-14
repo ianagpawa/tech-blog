@@ -280,6 +280,7 @@ def signup():
 
 @app.route("/projects/<string:project_name>/")
 def projectPosts(project_name):
+    project_name = " ".join(project_name.split("_"))
     posts = Post.query()
     posts = posts.filter(Post.project == project_name)
     posts = posts.order(-Post.created)

@@ -42,3 +42,6 @@ class Post(ndb.Model):
             String of blog post content with html breaks replaced with newlines.
         """
         return self.content.replace("<br>", "\n")
+
+    def convert_project_name(self):
+        return " ".join(self.project.split(" "))

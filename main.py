@@ -292,4 +292,4 @@ def projectPosts(project_name):
     posts = Post.query()
     posts = posts.filter(Post.project == project)
     posts = posts.order(-Post.created)
-    return render_template("project.html", posts=posts)
+    return render_template("project.html", posts=posts, project=project)

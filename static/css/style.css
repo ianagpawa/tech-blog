@@ -128,9 +128,8 @@ textarea {
 
 
 hr{
-    color: black;
+    border-bottom: 1px solid #c7c7c7;
 }
-
 
 /*DELETE POST*/
 
@@ -144,7 +143,8 @@ hr{
 
 /*FOOTER*/
 .footer{
-    margin-top: 5vh;
+    margin-top: 3vh;
+    margin-bottom: 2vh;
 }
 
 

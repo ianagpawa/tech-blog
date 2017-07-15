@@ -3,8 +3,10 @@
 
 <div class='frontpage col-md-12 text-center'>
 
+    <h2>Blog posts for {{project}}</h2>
+    <br>
     {% for post in posts %}
-
+    <hr class='col-md-12'>
     <div class='posts text-left'>
         <a href="{{url_for('showPost', post_id=post.key.id())}}" class='post-link'>
         <div class='col-md-12'>
@@ -33,10 +35,9 @@
             </div>
 
         </div>
-
     </div>
+
 
     {% endfor %}
 </div>
-
 {% endblock %}

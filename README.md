@@ -35,6 +35,13 @@ $   pip install -t lib -r requirements.txt
 $   deactivate
 ```
 
+#### Deployment
+When using command `gcloud app deploy` to deploy, file `index.yaml` is not automatically updated.  Use the following command to upload the index file manually:
+`gcloud datastore create-indexes index.yaml`
+
+To see the status of present indexes, visit the following site:
+[Datastore Indexes](https://appengine.google.com/datastore/indexes)
+
 
 #### Viewing the app locally
 While the terminal is in the root directory, run the following command:

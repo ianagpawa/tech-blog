@@ -20,6 +20,12 @@ app = Flask(__name__)
 app.secret_key = 'IsThatYouJohnWayne?'
 
 
+@app.context_processor
+def project_titles():
+    titles = Post.query(projection=[Post.project], group_by=[Post.project])
+    return dict(titles=titles)
+
+
 @app.route('/')
 def front():
     if 'username' in session:

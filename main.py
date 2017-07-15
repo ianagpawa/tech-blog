@@ -288,8 +288,8 @@ def camelCase(word):
 def projectPosts(project_name):
     name = project_name.split("_")
     name = list(map(lambda word: camelCase(word), name))
-    project_name = " ".join(name)
+    project = " ".join(name)
     posts = Post.query()
-    posts = posts.filter(Post.project == project_name)
+    posts = posts.filter(Post.project == project)
     posts = posts.order(-Post.created)
     return render_template("project.html", posts=posts)

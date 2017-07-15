@@ -45,3 +45,51 @@ class Post(ndb.Model):
 
     def convert_project_name(self):
         return " ".join(self.project.split(" "))
+
+#
+#
+# post1 = Post(
+#             title="Test1",
+#             content="Test1",
+#             project='Music Catalog',
+#             project_link="Test1",
+#             github="Test1",
+#             creator="Me"
+# )
+#
+# post1.put()
+#
+# post2 = Post(
+#             title="Test2",
+#             content="Test2",
+#             project='Test',
+#             project_link="Test1",
+#             github="Test1",
+#             creator="Me"
+# )
+#
+# post2.put()
+#
+#
+# post3 = Post(
+#             title="Test3",
+#             content="Test3",
+#             project='Music Catalog',
+#             project_link="Test3",
+#             github="Test3",
+#             creator="Me"
+# )
+#
+# post3.put()
+#
+#
+# post4 = Post(
+#             title="Test4",
+#             content="Test4",
+#             project='Rabdin',
+#             project_link="Test4",
+#             github="Test4",
+#             creator="Me"
+# )
+#
+# post4.put()

@@ -28,8 +28,6 @@ def front():
     else:
         state = False
     posts = Post.query().order(-Post.created)
-    # for p in posts:
-    #     print p.key.id()
     return render_template("front.html", posts=posts, state=state)
 
 

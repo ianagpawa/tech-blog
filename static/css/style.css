@@ -27,6 +27,11 @@ a:hover {
     margin-left: 2vw;
 }
 
+.chronicle:hover{
+    color: orange;
+    cursor: pointer;
+}
+
 .dropdown-divider{
     color: black;
 }

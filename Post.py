@@ -46,7 +46,7 @@ class Post(ndb.Model):
     def convert_project_name(self):
         return "_".join(self.project.split(" "))
 
-#
+
 #
 # post1 = Post(
 #             title="Test1",

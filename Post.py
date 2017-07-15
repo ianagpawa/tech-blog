@@ -44,7 +44,7 @@ class Post(ndb.Model):
         return self.content.replace("<br>", "\n")
 
     def convert_project_name(self):
-        return " ".join(self.project.split(" "))
+        return "_".join(self.project.split(" "))
 
 #
 #

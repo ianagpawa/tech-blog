@@ -15,6 +15,7 @@ from Post import Post
 from User import User
 
 from google.appengine.ext import ndb
+from google.appengine.api import memcache
 
 app = Flask(__name__)
 app.secret_key = 'IsThatYouJohnWayne?'
@@ -26,15 +27,37 @@ def project_titles():
     return dict(titles=titles)
 
 
-@app.route('/')
-def front():
-    if 'username' in session:
-        username = session['username']
-        state = True
-    else:
-        state = False
+@app.route('/', methods=["GET", "POST"])
+def front(cur=None, prev=False):
     posts = Post.query().order(-Post.created)
-    return render_template("front.html", posts=posts, state=state)
+    if request.method == "POST":
+        if request.form['forward']:
+            return redirect(url_for('front', test=5))
+    else:
+        thing = request.args.get("test")
+        print thing
+        if 'username' in session:
+            username = session['username']
+            state = True
+        else:
+            state = False
+
+
+        page, cur, more = posts.fetch_page(2, start_cursor=cur)
+        return render_template("front.html", posts=page, state=state)
+
+    # prev_cursor = self.request.get('prev_cursor', '')
+    # next_cursor = self.request.get('next_cursor', '')
+    # pagination, next_cursor, prev_cursor, prev, next_  = Post.cursor_pagination("", "")
+    # for page in pagination['posts']:
+    #     print page.title
+
+
+    # page, cur, more = posts.fetch_page(2)
+    # page, cur, more = posts.fetch_page(2, start_cursor=cur)
+    # # posts.fetch(20, end_cursor=cur)
+
+
 
 
 @app.route("/new/", methods=['GET', 'POST'])

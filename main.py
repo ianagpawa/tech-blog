@@ -16,6 +16,7 @@ from User import User
 
 from google.appengine.ext import ndb
 from google.appengine.api import memcache
+from google.appengine.datastore.datastore_query import Cursor
 
 app = Flask(__name__)
 app.secret_key = 'IsThatYouJohnWayne?'
@@ -28,34 +29,76 @@ def project_titles():
 
 
 @app.route('/', methods=["GET", "POST"])
-def front(cur=None, prev=False):
+def front():
+    if 'username' in session:
+        username = session['username']
+        state = True
+    else:
+        state = False
+
     posts = Post.query().order(-Post.created)
+
+    # posts_cursor = memcache.get('posts_cursor')
+    # if posts_cursor:
+    #     print posts_cursor
+    #     posts.with_cursor(start_cursor=posts_cursor)
+    #
+    # for post in posts_cursor:
+    #     print post.title
+    #
+    # posts_cursor = post.cursor()
+    # memcache.set('posts_cursor', posts_cursor)
+
+    # if request.method == "POST":
+    #     if request.form['forward']:
+    #         page, cur, more = posts.fetch_page(2)
+    #         cur_str = cur.urlsafe()
+    #         return redirect(url_for('front', cur=cur_str, posts=page, state=state))
+    # else:
+    #
+    #     cur = request.args.get("cur") or None
+    #
+    #     if cur != '':
+    #         cur = Cursor(urlsafe=cur)
+    #
+    #         page, cur, more = posts.fetch_page(2, start_cursor=cur)
+    #         cur_str = cur.urlsafe()
+    #         return render_template("front.html", posts=page, state=state, cur=cur_str)
+
     if request.method == "POST":
         if request.form['forward']:
-            return redirect(url_for('front', test=5))
+            page, cur, more = posts.fetch_page(2)
+            cur_str = cur.urlsafe()
+            return redirect(url_for('front', cur=cur_str, posts=page, state=state))
     else:
-        thing = request.args.get("test")
-        print thing
-        if 'username' in session:
-            username = session['username']
-            state = True
-        else:
-            state = False
+
+        cur = request.args.get("cur") or None
+
+        if cur != '':
+            cur = Cursor(urlsafe=cur)
+
+            page, cur, more = posts.fetch_page(2, start_cursor=cur)
+            cur_str = cur.urlsafe()
+            return render_template("front.html", posts=page, state=state, cur=cur_str)
 
 
-        page, cur, more = posts.fetch_page(2, start_cursor=cur)
-        return render_template("front.html", posts=page, state=state)
 
-    # prev_cursor = self.request.get('prev_cursor', '')
-    # next_cursor = self.request.get('next_cursor', '')
-    # pagination, next_cursor, prev_cursor, prev, next_  = Post.cursor_pagination("", "")
-    # for page in pagination['posts']:
+
+    # prev_cursor = request.args.get('prev_cursor') or None
+    # next_cursor = request.args.get('next_cursor') or None
+    # pagination, next_cursor, prev_cursor, prev, next_  = Post.cursor_pagination(prev_cursor, next_cursor)
+    # for page in pagination:
     #     print page.title
 
 
     # page, cur, more = posts.fetch_page(2)
     # page, cur, more = posts.fetch_page(2, start_cursor=cur)
     # # posts.fetch(20, end_cursor=cur)
+
+
+    # return render_template("front.html", posts=posts, state=state)
+                            # next_cursor=next_cursor, previous_cursor=previous_cursor,
+                            # prev=prev, next_=next_)
 
 
 

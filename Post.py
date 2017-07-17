@@ -46,7 +46,7 @@ class Post(ndb.Model):
     def convert_project_name(self):
         return "_".join(self.project.split(" "))
 
-
+    # 
     # @classmethod
     # def cursor_pagination(cls, prev_cursor_str, next_cursor_str):
     #     ITEMS = 2
@@ -76,7 +76,7 @@ class Post(ndb.Model):
     #         prev = True if more else False
     #         next_ = True
     #     return objects, next_cursor_str, prev_cursor_str, prev, next_
-        
+    #
 
 #
 #

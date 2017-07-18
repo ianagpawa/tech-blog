@@ -49,11 +49,34 @@ def front():
     # posts_cursor = post.cursor()
     # memcache.set('posts_cursor', posts_cursor)
 
+    if request.method == "POST":
+        if request.form['forward']:
+            current_cursor = request.args.get("cur")
+            current_cursor = Cursor(urlsafe=current_cursor)
+            page, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
+            cur_str = cur.urlsafe()
+            return redirect(url_for('front', cur=cur_str, posts=page, state=state))
+        if request.form['backward']:
+            r_posts = posts.order(-Posts.created)
+            r_page, r_cur, r_more = r_posts.fetch(2, start_cursor=cur)
+            return redirect(url_for('front', cur=r_cur, posts=r_page, state=state))
+    else:
+
+        cur = request.args.get("cur") or None
+
+        cur = Cursor(urlsafe=cur)
+
+        page, cur, more = posts.fetch_page(2, start_cursor=cur)
+        cur_str = cur.urlsafe()
+        return render_template("front.html", posts=page, state=state, cur=cur_str)
+
     # if request.method == "POST":
     #     if request.form['forward']:
     #         page, cur, more = posts.fetch_page(2)
     #         cur_str = cur.urlsafe()
     #         return redirect(url_for('front', cur=cur_str, posts=page, state=state))
+    #     if request.form['backward']:
+    #         back, cur, more = posts.fetch_page()
     # else:
     #
     #     cur = request.args.get("cur") or None
@@ -65,27 +88,11 @@ def front():
     #         cur_str = cur.urlsafe()
     #         return render_template("front.html", posts=page, state=state, cur=cur_str)
 
-    if request.method == "POST":
-        if request.form['forward']:
-            page, cur, more = posts.fetch_page(2)
-            cur_str = cur.urlsafe()
-            return redirect(url_for('front', cur=cur_str, posts=page, state=state))
-    else:
-
-        cur = request.args.get("cur") or None
-
-        if cur != '':
-            cur = Cursor(urlsafe=cur)
-
-            page, cur, more = posts.fetch_page(2, start_cursor=cur)
-            cur_str = cur.urlsafe()
-            return render_template("front.html", posts=page, state=state, cur=cur_str)
 
 
 
-
-    # prev_cursor = request.args.get('prev_cursor') or None
-    # next_cursor = request.args.get('next_cursor') or None
+    # prev_cursor = request.args.get('prev_cursor') or ""
+    # next_cursor = request.args.get('next_cursor') or ""
     # pagination, next_cursor, prev_cursor, prev, next_  = Post.cursor_pagination(prev_cursor, next_cursor)
     # for page in pagination:
     #     print page.title
@@ -96,9 +103,9 @@ def front():
     # # posts.fetch(20, end_cursor=cur)
 
 
-    # return render_template("front.html", posts=posts, state=state)
-                            # next_cursor=next_cursor, previous_cursor=previous_cursor,
-                            # prev=prev, next_=next_)
+    return render_template("front.html", posts=posts, state=state,
+                            next_cursor=next_cursor, previous_cursor=previous_cursor,
+                            prev=prev, next_=next_)
 
 
 

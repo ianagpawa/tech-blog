@@ -1,5 +1,6 @@
 
 from google.appengine.ext import ndb
+from google.appengine.datastore.datastore_query import Cursor
 
 class Post(ndb.Model):
     """
@@ -46,7 +47,7 @@ class Post(ndb.Model):
     def convert_project_name(self):
         return "_".join(self.project.split(" "))
 
-    # 
+
     # @classmethod
     # def cursor_pagination(cls, prev_cursor_str, next_cursor_str):
     #     ITEMS = 2
@@ -125,3 +126,26 @@ class Post(ndb.Model):
 # )
 #
 # post4.put()
+#
+# post5 = Post(
+#             title="Test5",
+#             content="Test5",
+#             project='Music Catalog',
+#             project_link="Test5",
+#             github="Test5",
+#             creator="Me"
+# )
+#
+# post5.put()
+#
+#
+# post6 = Post(
+#             title="Test6",
+#             content="Test6",
+#             project='Rabdin',
+#             project_link="Test6",
+#             github="Test6",
+#             creator="Me"
+# )
+#
+# post6.put()

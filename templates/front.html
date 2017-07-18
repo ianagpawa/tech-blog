@@ -51,9 +51,11 @@
 </div>
 
 <div>
+    {% if more %}
     <form method='post'>
         <input name='forward' type='submit' value='Forward'>
     </form>
+    {% endif %}
 
     <form method='post'>
         <input name='backward' type='submit' value='Backward'>

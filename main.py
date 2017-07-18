@@ -47,17 +47,19 @@ def front():
     # print 'f'
 
     if request.method == "POST":
+        current_cursor = memcache.get('current_cursor')
         if request.form['forward']:
-            current_cursor = memcache.get('current_cursor')
             posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
             memcache.set('current_cursor', cur)
-            return render_template('front.html', posts=posts, state=state)
-        
+            return render_template('front.html', posts=posts, state=state, more=more)
+        if request.form['backward']:
+
+
     else:
         current_cursor = memcache.get('current_cursor')
         posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
         memcache.set('current_cursor', cur)
-        return render_template("front.html", posts=posts, state=state)
+        return render_template("front.html", posts=posts, state=state, more=more)
 
     # current_cursor = cur
     # print 'h'

@@ -47,39 +47,6 @@ class Post(ndb.Model):
     def convert_project_name(self):
         return "_".join(self.project.split(" "))
 
-
-    # @classmethod
-    # def cursor_pagination(cls, prev_cursor_str, next_cursor_str):
-    #     ITEMS = 2
-    #     posts = cls.query().order(-cls.created)
-    #     if not prev_cursor_str and not next_cursor_str:
-    #         objects, next_cursor, more = posts.fetch_page(ITEMS)
-    #         prev_cursor_str = ''
-    #         if next_cursor:
-    #             next_cursor_str = next_cursor.urlsafe()
-    #         else:
-    #             next_cursor_str = ''
-    #         next_ = True if more else False
-    #         prev = False
-    #     elif next_cursor_str:
-    #         cursor = Cursor(urlsafe=next_cursor_str)
-    #         objects, next_cursor, more = cls.query().order(cls.number).fetch_page(ITEMS, start_cursor=cursor)
-    #         prev_cursor_str = next_cursor_str
-    #         next_cursor_str = next_cursor.urlsafe()
-    #         prev = True
-    #         next_ = True if more else False
-    #     elif prev_cursor_str:
-    #         cursor = Cursor(urlsafe=prev_cursor_str)
-    #         objects, next_cursor, more = cls.query().order(-cls.number).fetch_page(ITEMS, start_cursor=cursor)
-    #         objects.reverse()
-    #         next_cursor_str = prev_cursor_str
-    #         prev_cursor_str = next_cursor.urlsafe()
-    #         prev = True if more else False
-    #         next_ = True
-    #     return objects, next_cursor_str, prev_cursor_str, prev, next_
-    #
-
-#
 #
 # post1 = Post(
 #             title="Test1",

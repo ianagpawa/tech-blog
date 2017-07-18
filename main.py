@@ -45,20 +45,30 @@ def front():
     #     posts.with_cursor(start_cursor=current_cursor)
     #     print 'e'
     # print 'f'
-
+    current_cursor = memcache.get('current_cursor')
+    current_more = memcache.get('current_more')
     if request.method == "POST":
-        current_cursor = memcache.get('current_cursor')
-        if request.form['forward']:
-            posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
-            memcache.set('current_cursor', cur)
-            return render_template('front.html', posts=posts, state=state, more=more)
-        if request.form['backward']:
-
+        if current_more:
+            if request.form['forward']:
+                posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
+                memcache.set('current_cursor', cur)
+                memcache.set('current_more', more)
+                return render_template('front.html', posts=posts, state=state, more=more)
+            if request.form['backward']:
+                posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
+                posts.reverse()
+                memcache.set("current_cursor", cur)
+                # return redirect("/")
+        else:
+            return redirect("/")
 
     else:
-        current_cursor = memcache.get('current_cursor')
-        posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
-        memcache.set('current_cursor', cur)
+        if current_cursor and current_more:
+            posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
+        else:
+            posts, cur, more = posts.fetch_page(2)
+            memcache.set('current_cursor', cur)
+            memcache.set('current_more', more)
         return render_template("front.html", posts=posts, state=state, more=more)
 
     # current_cursor = cur

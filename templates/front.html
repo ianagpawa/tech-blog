@@ -53,10 +53,12 @@
 <div>
 
     <form method='post'>
-        {% if more %}
-        <input name='page' type='submit' value='Forward'>
-        {% endif %}
-        <input name='page' type='submit' value='Backward'>
+
+        {% for cur in cursors %}
+            <input name='page' type='submit' value='{{loop.index}}'>
+
+        {% endfor %}
+
     </form>
 
 

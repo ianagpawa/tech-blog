@@ -37,54 +37,33 @@ def front():
         state = False
 
     posts = Post.query().order(-Post.created)
-    r_posts = Post.query().order(Post.created)
 
-    current_cursor = memcache.get('current_cursor')
-    current_more = memcache.get('current_more')
+    cursors = [None]
+    more = True
+    cur = None
+    while more:
+        thing, cur, more = posts.fetch_page(2, start_cursor=cur)
+        cursors.append(cur)
 
-
-    # if current_cursor:
-    #     print 'd'
-    #     posts.with_cursor(start_cursor=current_cursor)
-    #     print 'e'
-    # print 'f'
 
     if request.method == "POST":
-
-        # if current_more:
         if request.form['page']:
+
             value = request.form['page']
-            if value == "Forward":
-                posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
-                memcache.set('current_cursor', cur)
-                memcache.set('current_more', more)
-            if value == 'Backward':
-
-                posts, cur, more = posts.fetch_page(2, end_cursor=current_cursor)
-                older_posts, previous_cur, more = posts.fetch_page(2, end_cursor=cur)
-                memcache.set("previous_cursor", previous_cur)
-                memcache.set('current_cursor', cur)
-                memcache.set('current_more', more)
-        # if request.form['backward'] == "Backward":
-            # posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
-            # memcache.set('current_cursor', cur)
-            # memcache.set('current_more', more)
-            # pass
+            value = int(value) - 1
+            # print value
+            cursor = cursors[value]
 
 
-            return render_template('front.html', posts=posts, state=state, more=more)
+            posts, cur, more = posts.fetch_page(2, start_cursor=cursor)
+            return render_template('front.html', posts=posts, state=state, cursors=cursors)
         # else:
         #     return redirect("/")
 
     else:
-        # if current_cursor and current_more:
-        #     posts, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
-        # else:
-
         posts, cur, more = posts.fetch_page(2)
         memcache.set('current_cursor', cur)
-        memcache.set('current_more', more)
-        return render_template("front.html", posts=posts, state=state, more=more)
+        return render_template("front.html", posts=posts, state=state, cursors=cursors)
 
     # current_cursor = cur
     # print 'h'

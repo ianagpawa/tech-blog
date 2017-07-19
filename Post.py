@@ -1,6 +1,5 @@
 
 from google.appengine.ext import ndb
-from google.appengine.datastore.datastore_query import Cursor
 
 class Post(ndb.Model):
     """
@@ -47,6 +46,8 @@ class Post(ndb.Model):
     def convert_project_name(self):
         return "_".join(self.project.split(" "))
 
+
+#
 #
 # post1 = Post(
 #             title="Test1",

@@ -51,15 +51,16 @@
 </div>
 
 <div>
-    {% if more %}
-    <form method='post'>
-        <input name='forward' type='submit' value='Forward'>
-    </form>
-    {% endif %}
 
     <form method='post'>
-        <input name='backward' type='submit' value='Backward'>
+        {% if more %}
+        <input name='page' type='submit' value='Forward'>
+        {% endif %}
+        <input name='page' type='submit' value='Backward'>
     </form>
+
+
+
 </div>
 
 <div class="row col-md-12 text-center footer">

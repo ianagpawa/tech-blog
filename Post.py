@@ -47,7 +47,7 @@ class Post(ndb.Model):
         return "_".join(self.project.split(" "))
 
 
-#
+# 
 #
 # post1 = Post(
 #             title="Test1",

@@ -45,20 +45,19 @@ def front():
         thing, cur, more = posts.fetch_page(2, start_cursor=cur)
         cursors.append(cur)
 
+    cursors.pop()
 
     if request.method == "POST":
         if request.form['page']:
 
             value = request.form['page']
             value = int(value) - 1
-            # print value
             cursor = cursors[value]
 
-
             posts, cur, more = posts.fetch_page(2, start_cursor=cursor)
+
             return render_template('front.html', posts=posts, state=state, cursors=cursors)
-        # else:
-        #     return redirect("/")
+
 
     else:
         posts, cur, more = posts.fetch_page(2)

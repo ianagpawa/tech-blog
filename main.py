@@ -38,14 +38,15 @@ def front():
 
     posts = Post.query().order(-Post.created)
 
-    cursors = memcache.get("cursors")
+    items = 10
 
+    cursors = memcache.get("cursors")
     if not cursors:
         cursors_list = [None]
         more = True
         cur = None
         while more:
-            thing, cur, more = posts.fetch_page(2, start_cursor=cur)
+            thing, cur, more = posts.fetch_page(items, start_cursor=cur)
             cursors_list.append(cur)
 
         cursors_list.pop()
@@ -53,77 +54,20 @@ def front():
         memcache.set('cursors', cursors_list)
         cursors = memcache.get("cursors")
 
-
     if request.method == "POST":
         if request.form['page']:
-
-
 
             value = request.form['page']
             value = int(value) - 1
             cursor = cursors[value]
 
-            posts, cur, more = posts.fetch_page(2, start_cursor=cursor)
+            posts, cur, more = posts.fetch_page(items, start_cursor=cursor)
 
             return render_template('front.html', posts=posts, state=state, cursors=cursors)
 
-
     else:
-
-        posts, cur, more = posts.fetch_page(2)
-
+        posts, cur, more = posts.fetch_page(items)
         return render_template("front.html", posts=posts, state=state, cursors=cursors)
-
-    # current_cursor = cur
-    # print 'h'
-    # memcache.set('current_cursor', current_cursor)
-    # print 'i'
-
-
-
-
-
-
-    # if request.method == "POST":
-    #     if request.form['forward']:
-    #         current_cursor = request.args.get("cur")
-    #         current_cursor = Cursor(urlsafe=current_cursor)
-    #         page, cur, more = posts.fetch_page(2, start_cursor=current_cursor)
-    #         cur_str = cur.urlsafe()
-    #         return redirect(url_for('front', cur=cur_str, posts=page, state=state))
-    #     if request.form['backward']:
-    #         r_posts = posts.order(-Posts.created)
-    #         r_page, r_cur, r_more = r_posts.fetch(2, start_cursor=cur)
-    #         return redirect(url_for('front', cur=r_cur, posts=r_page, state=state))
-    # else:
-    #
-    #     cur = request.args.get("cur") or None
-    #
-    #     cur = Cursor(urlsafe=cur)
-    #
-    #     page, cur, more = posts.fetch_page(2, start_cursor=cur)
-    #     cur_str = cur.urlsafe()
-    #     return render_template("front.html", posts=page, state=state, cur=cur_str)
-
-
-
-    # prev_cursor = request.args.get('prev_cursor') or ""
-    # next_cursor = request.args.get('next_cursor') or ""
-    # pagination, next_cursor, prev_cursor, prev, next_  = Post.cursor_pagination(prev_cursor, next_cursor)
-    # for page in pagination:
-    #     print page.title
-
-
-    # page, cur, more = posts.fetch_page(2)
-    # page, cur, more = posts.fetch_page(2, start_cursor=cur)
-    # # posts.fetch(20, end_cursor=cur)
-
-    #
-    # return render_template("front.html", posts=posts, state=state,
-    #                         next_cursor=next_cursor, previous_cursor=previous_cursor,
-    #                         prev=prev, next_=next_)
-
-
 
 
 @app.route("/new/", methods=['GET', 'POST'])
@@ -144,6 +88,7 @@ def newPost():
                             github=github,
                             creator=creator)
                 post.put()
+                memcache.set('cursors', None)
                 return redirect("/")
 
         else:

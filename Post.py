@@ -47,7 +47,7 @@ class Post(ndb.Model):
         return "_".join(self.project.split(" "))
 
 
-# 
+
 #
 # post1 = Post(
 #             title="Test1",
@@ -117,3 +117,74 @@ class Post(ndb.Model):
 # )
 #
 # post6.put()
+#
+#
+#
+# post7 = Post(
+#             title="Test1",
+#             content="Test1",
+#             project='Music Catalog',
+#             project_link="Test1",
+#             github="Test1",
+#             creator="Me"
+# )
+#
+# post7.put()
+#
+# post8 = Post(
+#             title="Test2",
+#             content="Test2",
+#             project='Test',
+#             project_link="Test1",
+#             github="Test1",
+#             creator="Me"
+# )
+#
+# post8.put()
+#
+#
+# post9 = Post(
+#             title="Test3",
+#             content="Test3",
+#             project='Music Catalog',
+#             project_link="Test3",
+#             github="Test3",
+#             creator="Me"
+# )
+#
+# post9.put()
+#
+#
+# post10 = Post(
+#             title="Test4",
+#             content="Test4",
+#             project='Rabdin',
+#             project_link="Test4",
+#             github="Test4",
+#             creator="Me"
+# )
+#
+# post10.put()
+#
+# post11 = Post(
+#             title="Test5",
+#             content="Test5",
+#             project='Music Catalog',
+#             project_link="Test5",
+#             github="Test5",
+#             creator="Me"
+# )
+#
+# post11.put()
+#
+#
+# post12 = Post(
+#             title="Test6",
+#             content="Test6",
+#             project='Rabdin',
+#             project_link="Test6",
+#             github="Test6",
+#             creator="Me"
+# )
+#
+# post12.put()

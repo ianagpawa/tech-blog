@@ -50,16 +50,18 @@
     {% endfor %}
 </div>
 
-<div>
+<div class='col-md-12'>
+    <div class='container-fluid'>
 
-    <form method='post'>
+        <form method='post'>
 
-        {% for cur in cursors %}
-            <input name='page' type='submit' value='{{loop.index}}'>
-        {% endfor %}
+            {% for cur in cursors %}
+                <input name='page' type='submit' value='{{loop.index}}'>
+            {% endfor %}
 
-    </form>
+        </form>
 
+    </div>
 
 
 </div>

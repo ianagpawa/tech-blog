@@ -9,24 +9,24 @@
         <div class="text-right col-md-12">
 
             <div class='col-md-12'>
-                <label class='col-md-2 col-md-offset-2'>Title</label>
-                <input class='post-label col-md-5' type="text" name="change-title" value="{{post.title}}">
+                <label class='edit-label col-md-3 col-md-offset-2'>Title</label>
+                <input class='post-label col-md-7' type="text" name="change-title" value="{{post.title}}">
             </div>
-
+            <br>
             <div class='col-md-12'>
-                <label class='col-md-2  col-md-offset-2'>Project</label>
-                <input class='post-label col-md-5' type='text' name='change-project' value='{{post.project}}'>
+                <label class='edit-label col-md-3  col-md-offset-2'>Project</label>
+                <input class='post-label col-md-7' type='text' name='change-project' value='{{post.project}}'>
             </div>
 
             <br>
             <div class='col-md-12'>
-                <label class='col-md-2  col-md-offset-2'>Website Link</label>
-                <input class='col-md-5 post-label' type='text' name='change-pj-link' value='{{post.project_link}}'>
+                <label class='edit-label col-md-3  col-md-offset-2'>Website Link</label>
+                <input class='col-md-7 post-label' type='text' name='change-pj-link' value='{{post.project_link}}'>
             </div>
             <br>
             <div class='col-md-12'>
-                <label class='col-md-2  col-md-offset-2'>Github Link</label>
-                <input class='col-md-5 post-label' type='text' name='change-github' value='{{post.github}}'>
+                <label class='edit-label col-md-3  col-md-offset-2'>Github Link</label>
+                <input class='col-md-7 post-label' type='text' name='change-github' value='{{post.github}}'>
             </div>
          </div>
 
@@ -38,7 +38,7 @@
             <div class="col-md-3 col-md-offset-1">
                 <a href='{{url_for("showPost", post_id=post.key.id())}}'>Cancel</a>
             </div>
-            <div class="col-md-4 col-md-offset-2">
+            <div class="col-md-4 col-md-offset-1">
                 <input id='edit-submit' type="submit">
             </div>
         </div>

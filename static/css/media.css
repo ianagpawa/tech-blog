@@ -7,7 +7,22 @@
     }
 
     .input-post,
-    #new-post-textarea{
-        width: 75vw;
+    #new-post-textarea,
+    .post-label,
+    #edit-post-textarea{
+        width: 70vw;
     }
+
+    .post-label,
+    #edit-post-textarea{
+        border: 1px solid black;
+        margin-right: 7vw;
+    }
+
+    .edit-label{
+        display: block;
+        text-align: center;
+    }
+
+
 }

@@ -38,17 +38,26 @@ def front():
 
     posts = Post.query().order(-Post.created)
 
-    cursors = [None]
-    more = True
-    cur = None
-    while more:
-        thing, cur, more = posts.fetch_page(2, start_cursor=cur)
-        cursors.append(cur)
+    cursors = memcache.get("cursors")
 
-    cursors.pop()
+    if not cursors:
+        cursors_list = [None]
+        more = True
+        cur = None
+        while more:
+            thing, cur, more = posts.fetch_page(2, start_cursor=cur)
+            cursors_list.append(cur)
+
+        cursors_list.pop()
+
+        memcache.set('cursors', cursors_list)
+        cursors = memcache.get("cursors")
+
 
     if request.method == "POST":
         if request.form['page']:
+
+
 
             value = request.form['page']
             value = int(value) - 1
@@ -60,8 +69,9 @@ def front():
 
 
     else:
+
         posts, cur, more = posts.fetch_page(2)
-        memcache.set('current_cursor', cur)
+
         return render_template("front.html", posts=posts, state=state, cursors=cursors)
 
     # current_cursor = cur

@@ -327,3 +327,17 @@ def projectPosts(project_name):
     posts = posts.filter(Post.project == project)
     posts = posts.order(-Post.created)
     return render_template("project.html", posts=posts, project=project)
+
+
+@app.route("/projects/<string:project_name>/JSON/")
+def projectPostsJSON(project_name):
+    name = project_name.split("_")
+    name = list(map(lambda word: camelCase(word), name))
+    project = " ".join(name)
+    posts = Post.query()
+    posts = posts.filter(Post.project == project)
+    posts = posts.order(-Post.created)
+    # for post in posts:
+    #     a = json.loads(post.serialize)
+    #     print a
+    return jsonify(Posts=[json.loads(post.serialize) for post in posts])

@@ -1,5 +1,6 @@
 
 from google.appengine.ext import ndb
+import json
 
 class Post(ndb.Model):
     """
@@ -47,7 +48,17 @@ class Post(ndb.Model):
         return "_".join(self.project.split(" "))
 
 
-
+    @property
+    def serialize(self):
+        return json.dumps({"title": self.title,
+            'project': self.project,
+            'project_link': self.project_link,
+            'github': self.github,
+            'content': self.content,
+            'creator': self.creator,
+            'created': self.created.strftime("%b %d, %Y"),
+            'last_modified': self.last_modified.strftime("%b %d, %Y")
+            })
 #
 # post1 = Post(
 #             title="Test1",

@@ -57,7 +57,8 @@ class Post(ndb.Model):
             'content': self.content,
             'creator': self.creator,
             'created': self.created.strftime("%b %d, %Y"),
-            'last_modified': self.last_modified.strftime("%b %d, %Y")
+            'last_modified': self.last_modified.strftime("%b %d, %Y"),
+            'post': self.key.id()
             })
 #
 # post1 = Post(

@@ -18,6 +18,8 @@ from google.appengine.ext import ndb
 from google.appengine.api import memcache
 from google.appengine.datastore.datastore_query import Cursor
 
+from listing import website as website
+
 app = Flask(__name__)
 app.secret_key = 'IsThatYouJohnWayne?'
 
@@ -30,6 +32,7 @@ def project_titles():
 
 @app.route('/', methods=["GET", "POST"])
 def front():
+
     if 'username' in session:
         username = session['username']
         state = True
@@ -78,7 +81,7 @@ def newPost():
                 title = request.form['title']
                 content = request.form['content']
                 project = request.form['project']
-                pj_link = request.form['pj-link']
+                pj_link = website[project]
                 github = request.form['github-link']
                 creator = "Ian Agpawa"
                 post = Post(title=title,

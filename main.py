@@ -324,7 +324,8 @@ def camelCase(word):
 @app.route("/projects/<string:project_name>/")
 def projectPosts(project_name):
     name = project_name.split("_")
-    name = list(map(lambda word: camelCase(word), name))
+    if len(name) > 1:
+        name = list(map(lambda word: camelCase(word), name))
     project = " ".join(name)
     posts = Post.query()
     posts = posts.filter(Post.project == project)
@@ -338,7 +339,8 @@ def projectPosts(project_name):
 @app.route("/projects/<string:project_name>/JSON/")
 def projectPostsJSON(project_name):
     name = project_name.split("_")
-    name = list(map(lambda word: camelCase(word), name))
+    if len(name) > 1:
+        name = list(map(lambda word: camelCase(word), name))
     project = " ".join(name)
     posts = Post.query()
     posts = posts.filter(Post.project == project)

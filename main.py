@@ -172,7 +172,7 @@ def editPost(post_id):
 
 
         else:
-            return render_template("edit_post.html", post=post)
+            return render_template("edit_post.html", post=post, state=True)
     else:
         return redirect('/')
 
@@ -186,7 +186,7 @@ def deletePost(post_id):
                 post.key.delete()
                 return redirect("/")
         else:
-            return render_template('delete_post.html')
+            return render_template('delete_post.html', state=True)
     else:
         return redirect("/")
 
@@ -323,6 +323,12 @@ def camelCase(word):
 
 @app.route("/projects/<string:project_name>/")
 def projectPosts(project_name):
+    if 'username' in session:
+        username = session['username']
+        state = True
+    else:
+        state = False
+
     name = project_name.split("_")
     if len(name) > 1:
         name = list(map(lambda word: camelCase(word), name))
@@ -333,7 +339,7 @@ def projectPosts(project_name):
         posts = posts.order(-Post.created)
     else:
         posts = False
-    return render_template("project.html", posts=posts, project=project)
+    return render_template("project.html", posts=posts, project=project, state=state)
 
 
 @app.route("/projects/<string:project_name>/JSON/")

@@ -41,7 +41,7 @@ def front():
 
     posts = Post.query().order(-Post.created)
 
-    items = 10
+    items = 20
 
     cursors = memcache.get("cursors")
     if not cursors:

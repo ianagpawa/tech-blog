@@ -44,10 +44,11 @@
             <div class='container-fluid'>
 
                 <form method='post'>
-
-                    {% for cur in cursors %}
-                        <input name='page' type='submit' value='{{loop.index}}'>
-                    {% endfor %}
+                    {% if cursors %}
+                        {% for cur in cursors %}
+                            <input name='page' type='submit' value='{{loop.index}}'>
+                        {% endfor %}
+                    {% endif %}
 
                 </form>
 

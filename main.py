@@ -339,6 +339,7 @@ def projectPosts(project_name):
         posts = posts.order(-Post.created)
     else:
         posts = False
+        return render_template("project.html", posts=posts, project=project, state=state)
 
     items = 20
     cursors = memcache.get(project)

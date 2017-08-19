@@ -321,7 +321,7 @@ def signup():
 def camelCase(word):
     return word[0].capitalize() + word[1:].lower()
 
-@app.route("/projects/<string:project_name>/")
+@app.route("/projects/<string:project_name>/", methods=["GET", "POST"])
 def projectPosts(project_name):
     if 'username' in session:
         username = session['username']
@@ -339,7 +339,34 @@ def projectPosts(project_name):
         posts = posts.order(-Post.created)
     else:
         posts = False
-    return render_template("project.html", posts=posts, project=project, state=state)
+
+    items = 20
+    cursors = memcache.get(project)
+
+    if not cursors:
+        cursors_list = [None]
+        more = True
+        cur = None
+        while more:
+            thing, cur, more = posts.fetch_page(items, start_cursor=cur)
+            cursors_list.append(cur)
+
+        cursors_list.pop()
+
+        memcache.set(project, cursors_list)
+        cursors = memcache.get(project)
+
+    if request.method == "POST":
+        if request.form['page']:
+
+            value = request.form['page']
+            value = int(value) - 1
+            cursor = cursors[value]
+            posts, cur, more = posts.fetch_page(items, start_cursor=cursor)
+    else:
+        posts, cur, more = posts.fetch_page(items)
+    return render_template("project.html", posts=posts, project=project, state=state, cursors=cursors)
+
 
 
 @app.route("/projects/<string:project_name>/JSON/")

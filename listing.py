@@ -16,7 +16,7 @@ website = {
     "Audacious": "https://github.com/ianagpawa/audacious",
     "Wikipedia Viewer": "https://wiki-it-ia.herokuapp.com",
     "Request Header Parser": "https://header-parser-ia.herokuapp.com",
-    "TimeStamp": "https://timestamp-microservice-ia.herokuapp.com,
+    "TimeStamp": "https://timestamp-microservice-ia.herokuapp.com",
     "File Metadata": "https://metadata-ia.herokuapp.com",
     "Local Weather": "https://weather-ia.herokuapp.com",
     "Finance Tracker": "https://thawing-plains-40720.herokuapp.com/users/sign_in",

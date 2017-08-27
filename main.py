@@ -341,7 +341,7 @@ def projectPosts(project_name):
         posts = False
         return render_template("project.html", posts=posts, project=project, state=state)
 
-    items = 20
+    items = 15
     cursors = memcache.get(project)
 
     if not cursors:

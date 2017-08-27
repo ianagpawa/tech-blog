@@ -43,6 +43,7 @@ def front():
 
     items = 15
 
+
     cursors = memcache.get("cursors")
     if not cursors:
         cursors_list = [None]
@@ -81,8 +82,13 @@ def newPost():
                 title = request.form['title']
                 content = request.form['content']
                 project = request.form['project']
-                pj_link = website[project]
                 github = request.form['github-link']
+                
+                if project in website:
+                    pj_link = website[project]
+                else:
+                    pj_link = github
+
                 creator = "Ian Agpawa"
                 post = Post(title=title,
                             content=content,
@@ -321,6 +327,7 @@ def signup():
 def camelCase(word):
     return word[0].capitalize() + word[1:].lower()
 
+
 @app.route("/projects/<string:project_name>/", methods=["GET", "POST"])
 def projectPosts(project_name):
     if 'username' in session:
@@ -332,6 +339,7 @@ def projectPosts(project_name):
     name = project_name.split("_")
     if len(name) > 1:
         name = list(map(lambda word: camelCase(word), name))
+
     project = " ".join(name)
     posts = Post.query()
     posts = posts.filter(Post.project == project)

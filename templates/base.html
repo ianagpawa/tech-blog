@@ -49,6 +49,8 @@
                 {% for title in titles %}
                 <li><a href="{{url_for('projectPosts', project_name=title.convert_project_name())}}">{{title.project}}</a></li>
                 {% endfor %}
+                <li role="separator" class="divider"></li>
+                <li><a href='/#contact-anchor'>Contact</a></li>
             </ul>
 
         </div>
